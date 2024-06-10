@@ -55,26 +55,6 @@ const server = http.createServer((req, res) => {
       res.end();
     }
 
-    if (req.url === '/public/work.html') {
-      const work1 = fs.readFileSync(`./public/work.html`, 'utf8');
-
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/html; charset=uft-8');
-      res.write(work1);
-      res.end();
-    }
-
-    // if(req.url === `/public/${title}.html`) {
-    //   const work2 = fs.readFileSync(`./data/${title}.html`, "utf8");
-
-    //   res.statusCode = 200;
-    //   res.setHeader('Content-Type', 'text/html; charset=uft-8');
-    //   res.write(work2);
-    //   res.end();
-    // }
-
-    //  POST
-
     console.log(req.url);
   } else if (req.method === 'POST') {
     if (req.url === '/submit') {
@@ -95,32 +75,32 @@ const server = http.createServer((req, res) => {
         //   }
         // });
 
-        let c = `<!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Work</title>
-        </head>
-        <body>
-          <form action="/submit" method="POST">
-            <label for="title">제목 :</label><br>
-            <input type="text" id="title" name="title"><br><br>
-            <label for="content">내용 :</label><br>
-            <textarea name="content" id="content"></textarea><br><br>
-            <input type="submit" value="submit">
-          </form>
+        // let c = `<!DOCTYPE html>
+        // <html lang="en">
+        // <head>
+        //   <meta charset="UTF-8">
+        //   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        //   <title>Work</title>
+        // </head>
+        // <body>
+        //   <form action="/submit" method="POST">
+        //     <label for="title">제목 :</label><br>
+        //     <input type="text" id="title" name="title"><br><br>
+        //     <label for="content">내용 :</label><br>
+        //     <textarea name="content" id="content"></textarea><br><br>
+        //     <input type="submit" value="submit">
+        //   </form>
 
-          <h1>Stress 내역</h1>
+        //   <h1>Stress 내역</h1>
 
-          <ul id=list>
-            <li>${file}</li>
-          </ul>
+        //   <ul id=list>
+        //     <li>${file}</li>
+        //   </ul>
 
-          </script>
+        //   </script>
 
-        </body>
-        </html>`;
+        // </body>
+        // </html>`;
 
         fs.writeFile(`./data/${title}.html`, b, (err) => {
           if (err) {
@@ -132,17 +112,15 @@ const server = http.createServer((req, res) => {
           res.end(b);
         });
 
-        fs.writeFile(`./data/work2.html`, c, (err) => {
-          if (err) {
-            console.log('Error');
-            return;
-          }
-          res.statusCode = 200;
-          res.setHeader('Content-Type', 'text/html; charset=utf-8');
-          res.end(c);
-        });
-
-
+        // fs.writeFile(`./data/work2.html`, c, (err) => {
+        //   if (err) {
+        //     console.log('Error');
+        //     return;
+        //   }
+        //   res.statusCode = 200;
+        //   res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        //   res.end(b);
+        // });
 
         // fs.writeFile('./public/work.html', c, (err) => {
         //   if (err) {
