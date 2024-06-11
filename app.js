@@ -51,7 +51,8 @@ const server = http.createServer((req, res) => {
     }
 
     console.log(req.url);
-  } else if (req.method === 'POST') {
+  }
+  if (req.method === 'POST') {
     if (req.url === '/submit') {
       let body = '';
       req.on('data', (chunk) => {
@@ -66,14 +67,10 @@ const server = http.createServer((req, res) => {
         console.log(addTitle);
         let addContent = addTitle.replace('<div></div>', `<div>${content}</div>`);
 
-        fs.writeFile(`./data/${title}.html`, addContent, (err) => {
-          if (err) {
-            console.log('Error');
-            return;
-          }
-          res.writeHead(200, { 'Content-Type': 'text/html; charset=uft-8' });
-          res.end(addContent);
-        });
+        fs.writeFileSync(`./data/${title}.html`, addContent, 'utf-8');
+
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=uft-8' });
+        res.end(addContent);
       });
     }
   }
@@ -86,6 +83,7 @@ const server = http.createServer((req, res) => {
 //     console.log(fileList);
 //   }
 // });
+
 const PORT = 3000;
 server.listen(PORT, function (err) {
   if (err) {
