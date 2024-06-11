@@ -4,6 +4,30 @@ const qs = require('node:querystring');
 // const stress = require("./stress");
 
 // * 기본 양식
+const main = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work</title>
+  </head>
+  <body>
+    <form action="/submit" method="POST">
+      <label for="title">제목 :</label><br />
+      <input type="text" id="title" name="title" /><br /><br />
+      <label for="content">내용 :</label><br />
+      <textarea name="content" id="content"></textarea><br /><br />
+      <input type="submit" value="submit" />
+    </form>
+
+    <h1>Stress 내역</h1>
+
+    
+
+
+  </body>
+</html>`;
+
 const workContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,6 +61,7 @@ const server = http.createServer((req, res) => {
     }
 
     if (req.url === '/work.html') {
+      fs.writeFileSync('./public/work.html', main, 'utf-8');
       const work = fs.readFileSync('./public/work.html', 'utf8');
 
       res.writeHead(200, { 'Content-Type': 'text/html; charset=uft-8' });
@@ -76,7 +101,7 @@ const server = http.createServer((req, res) => {
         for (let i in list) {
           arr.push(list[i]);
         }
-        console.log(arr);
+        // console.log(arr);
 
         res.writeHead(200, { 'Content-Type': 'text/html; charset=uft-8' });
         res.end(addContent);
