@@ -69,6 +69,10 @@ const server = http.createServer((req, res) => {
 
         fs.writeFileSync(`./data/${title}.html`, addContent, 'utf-8');
 
+        let list = fs.readdirSync('./data', 'utf-8');
+
+        console.log(list);
+
         res.writeHead(200, { 'Content-Type': 'text/html; charset=uft-8' });
         res.end(addContent);
       });
