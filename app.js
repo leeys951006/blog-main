@@ -1,48 +1,12 @@
 const http = require('http');
 const fs = require('fs');
 const qs = require('node:querystring');
+const main = require('./main.js')
+// console.log(main)
 // const stress = require("./stress");
 
 // * 기본 양식
-const main = `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Work</title>
-  </head>
-  <body>
-    <form action="/submit" method="POST">
-      <label for="title">제목 :</label><br />
-      <input type="text" id="title" name="title" /><br /><br />
-      <label for="content">내용 :</label><br />
-      <textarea name="content" id="content"></textarea><br /><br />
-      <input type="submit" value="submit" />
-    </form>
 
-    <h1>Stress 내역</h1>
-    <div></div>
-
-    
-
-
-  </body>
-</html>`;
-
-const workContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-  
-</head>
-<body>
-  <h1></h1>
-  <div></div>
-  <div><a href="./public/work.html">돌아가기</a></div>
-</body>
-</html>`;
 
 // * 서버
 const server = http.createServer((req, res) => {
@@ -62,7 +26,7 @@ const server = http.createServer((req, res) => {
     }
 
     if (req.url === '/work.html') {
-      fs.writeFileSync('./public/work.html', main, 'utf-8');
+      fs.writeFileSync('./public/work.html', main.workMain, 'utf-8');
       const work = fs.readFileSync('./public/work.html', 'utf8');
 
       res.writeHead(200, { 'Content-Type': 'text/html; charset=uft-8' });
@@ -89,7 +53,7 @@ const server = http.createServer((req, res) => {
         let title = a.title;
         let content = a.content;
 
-        let addTitle = workContent.replace('<h1></h1>', `<h1>${title}</h1>`);
+        let addTitle = main.dataMain.replace('<h1></h1>', `<h1>${title}</h1>`);
         console.log(addTitle);
         let addContent = addTitle.replace('<div></div>', `<div>${content}</div>`);
 
@@ -104,7 +68,7 @@ const server = http.createServer((req, res) => {
         }
         let j = arr.join('');
 
-        let jj = main.replace('<div></div>', `${j}`);
+        let jj = main.workMain.replace('<div></div>', `${j}`);
         console.log(jj);
 
         console.log(j);
