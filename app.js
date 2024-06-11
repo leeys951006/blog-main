@@ -21,6 +21,7 @@ const main = `<!DOCTYPE html>
     </form>
 
     <h1>Stress 내역</h1>
+    <div></div>
 
     
 
@@ -99,12 +100,21 @@ const server = http.createServer((req, res) => {
         // console.log(list);
         let arr = [];
         for (let i in list) {
-          arr.push(list[i]);
+          arr.push(`<a href="./data/${list[i]}">${list[i]}</a><br>`);
         }
+        let j = arr.join('');
+
+        let jj = main.replace('<div></div>', `${j}`);
+        console.log(jj);
+
+        console.log(j);
+        fs.writeFileSync('./public/work.html', jj, 'utf-8');
+
+        let re = fs.readFileSync('./public/work.html', 'utf-8');
         // console.log(arr);
 
         res.writeHead(200, { 'Content-Type': 'text/html; charset=uft-8' });
-        res.end(addContent);
+        res.end(re);
       });
     }
   }
