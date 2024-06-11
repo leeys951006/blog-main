@@ -72,9 +72,11 @@ const server = http.createServer((req, res) => {
         let list = fs.readdirSync('./data', 'utf-8');
 
         // console.log(list);
+        let arr = [];
         for (let i in list) {
-          console.log(list[i]);
+          arr.push(list[i]);
         }
+        console.log(arr);
 
         res.writeHead(200, { 'Content-Type': 'text/html; charset=uft-8' });
         res.end(addContent);
