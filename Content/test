@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>a</title>
+  </head>
+  <body>
+    <h1></h1>
+    <div></div>
+    <div><a href="/work.html">돌아가기</a></div>
+
+    test<br>
+
+    <form action="/contentSubmit" method="POST">
+        <label for="content">댓글 작성 :</label><br />
+        <textarea name="content" id="content"></textarea><br /><br />
+        <input type="submit" value="submit" />
+      </form>
+  </body>
+  </html>
