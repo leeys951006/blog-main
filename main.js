@@ -41,7 +41,7 @@ const main = {
   </body>
   </html>`,
 
-  contentSub: `<p></p>`
-}
+  contentSub: `<p></p>`,
+};
 
-module.exports = main
+module.exports = main;
