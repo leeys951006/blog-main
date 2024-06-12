@@ -7,7 +7,7 @@ const main = require('./main.js');
 
 // * 서버
 const server = http.createServer((req, res) => {
-  req.url = decodeURI(req.url)
+  req.url = decodeURI(req.url);
   if (req.method === 'POST') {
     if (req.url === '/submit') {
       let body = '';
@@ -48,7 +48,7 @@ const server = http.createServer((req, res) => {
       });
     }
 
-    if(req.url === '/contentSubmit') {
+    if (req.url === '/contentSubmit') {
       let body = '';
       req.on('data', (chunk) => {
         body += chunk.toString();
@@ -56,11 +56,30 @@ const server = http.createServer((req, res) => {
       req.on('end', () => {
         let a = qs.parse(body);
         let contentS = a.content;
-        let addConS = main.contentSub.replace('<p></p>', `<p>${contentS}</p>`)
+        let addConS = main.contentSub.replace('<p></p>', `<p>${contentS}</p>`);
         // console.log(addConS)
         fs.writeFileSync(`./contentdata/${contentS}.html`, addConS, 'utf-8');
-    });
-  }
+
+        let contentlist = fs.readdirSync('./contentdata', 'utf-8');
+
+        let Carr = [];
+        for (let i in contentlist) {
+          Carr.push(`${contentlist[i]}<br>`);
+        }
+        // console.log(Carr);
+        let cj = Carr.join('');
+        // console.log(cj);
+        let cjj = main.dataMain.replace('<div id="root"></div>', `${cj}`);
+        // console.log(cjj);
+
+        fs.writeFileSync(`./Content/${contentS}`, cjj, 'utf-8');
+
+        let cre = fs.readFileSync(`./Content/${contentS}`, 'utf-8');
+
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=uft-8' });
+        res.end(cre);
+      });
+    }
   }
 
   if (req.method === 'GET') {
@@ -86,21 +105,19 @@ const server = http.createServer((req, res) => {
       res.end(work);
     }
 
-    let list2 = fs.readdirSync('./data', 'utf-8')
-    for(let i in list2) {
+    let list2 = fs.readdirSync('./data', 'utf-8');
+    for (let i in list2) {
       if (req.url === `/data/${list2[i]}`) {
         const z = fs.readFileSync(`./data/${list2[i]}`, 'utf-8');
-  
-        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-        res.end(z)
+
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(z);
       }
     }
 
     console.log(req.url);
   }
 });
-
-
 
 const PORT = 3000;
 server.listen(PORT, function (err) {
